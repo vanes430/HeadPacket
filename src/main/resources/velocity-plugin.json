@@ -1,0 +1,17 @@
+{
+  "id": "headpacket",
+  "name": "HeadPacket",
+  "version": "${project.version}",
+  "description": "Advanced MOTD Head Textures",
+  "url": "https://github.com/vanes430/HeadPacket",
+  "authors": [
+    "vanes430"
+  ],
+  "dependencies": [
+    {
+      "id": "packetevents",
+      "optional": false
+    }
+  ],
+  "main": "github.vanes430.headpacket.velocity.VelocityHeadPacket"
+}

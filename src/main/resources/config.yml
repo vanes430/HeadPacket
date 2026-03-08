@@ -1,0 +1,43 @@
+# ==========================================================
+#                  HeadPacket Configuration
+#           Created by vanes430 | github.vanes430
+# ==========================================================
+
+# MineSkin API Key (Optional but Recommended)
+# Get a free API Key at https://mineskin.org/ for higher upload limits.
+# If left empty, the plugin will use public access (stricter rate limits).
+mineskin-api-key: ""
+
+# Image Settings
+# Name of the folder where you store images (inside the HeadPacket plugin folder).
+images-folder: "images"
+# Name of the image file to be used as MOTD (Must be inside images-folder).
+# Recommended format: PNG (Transparency is supported).
+motd-image: "motd.png"
+
+# Debug Mode
+# If true, the plugin will show additional information in the console during loading/processing.
+debug: true
+
+# Advanced MOTD Settings
+# Minimum protocol version to display custom heads in MOTD.
+# 773 = Minecraft 1.21.9/10 and above (supports ObjectComponent features).
+motd_minimum_protocol: 773
+
+# Dynamic Slots (Always Plus One)
+# If true, the maximum player slots will automatically be set to current online players + 1.
+# Example: 5/6, 10/11, etc.
+always_plus_one: true
+
+# Bedrock Exclusion (Geyser/Floodgate Support)
+# If true, the plugin will NOT send custom MOTD/Heads to Bedrock/MCPE players.
+# This is important as certain JSON Head features may cause display issues on Bedrock clients.
+ignore-bedrock: true
+
+# Hover Messages (Player List Sample)
+# Text that appears when players hover over the player count in the server list.
+# Supports MiniMessage (<gradient>, <rainbow>, etc) and Legacy (&a, &b, etc) formats.
+hover-messages:
+  - "<gradient:aqua:blue>HeadPacket</gradient> by vanes430"
+  - "&7Status: &aOnline"
+  - "&eJoin now!"

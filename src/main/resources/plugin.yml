@@ -1,0 +1,8 @@
+name: HeadPacket
+version: ${project.version}
+main: github.vanes430.headpacket.paper.PaperHeadPacket
+api-version: '1.21'
+depend: [packetevents]
+website: https://github.com/vanes430/HeadPacket
+author: vanes430
+folia-supported: true
