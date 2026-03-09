@@ -105,7 +105,6 @@ hover-messages:
 - **Architecture**: Modular design with no single file exceeding 100 lines for maximum maintainability.
 - **Performance**: Heavy I/O operations (MineSkin API) are handled on **Virtual Threads**.
 - **Messaging**: Fully powered by the **Kyori Adventure API** for modern text components.
-- **Build System**: Maven with **Spotless** for consistent code formatting.
 
 ---
 © 2026 vanes430. All rights reserved.

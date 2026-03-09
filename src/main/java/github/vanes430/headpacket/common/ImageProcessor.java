@@ -3,7 +3,6 @@ package github.vanes430.headpacket.common;
 import java.io.File;
 import java.util.List;
 import java.util.concurrent.*;
-import java.util.function.BiFunction;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.nio.file.Path;

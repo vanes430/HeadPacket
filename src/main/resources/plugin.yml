@@ -1,5 +1,5 @@
 name: HeadPacket
-version: ${project.version}
+version: ${version}
 main: github.vanes430.headpacket.paper.PaperHeadPacket
 api-version: '1.21'
 depend: [packetevents]
