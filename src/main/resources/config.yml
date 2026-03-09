@@ -3,10 +3,15 @@
 #           Created by vanes430 | github.vanes430
 # ==========================================================
 
-# MineSkin API Key (Optional but Recommended)
-# Get a free API Key at https://mineskin.org/ for higher upload limits.
-# If left empty, the plugin will use public access (stricter rate limits).
+# MineSkin API Key (MANDATORY)
+# Get a free API Key at https://mineskin.org/
+# This plugin respects MineSkin's service and requires an API Key to function.
 mineskin-api-key: ""
+
+# Upload Delay (Milliseconds)
+# Recommended: 2000 (2 seconds) for public/standard accounts to prevent rate limits.
+# Lower this only if you have a special MineSkin plan with higher limits.
+mineskin-delay: 2000
 
 # Image Settings
 # Name of the folder where you store images (inside the HeadPacket plugin folder).
@@ -24,6 +29,13 @@ debug: true
 # 773 = Minecraft 1.21.9/10 and above (supports ObjectComponent features).
 motd_minimum_protocol: 773
 
+# Fallback MOTD
+# This MOTD will be shown to players using versions older than the minimum protocol.
+# Supports MiniMessage and Legacy color codes.
+fallback-motd:
+  line1: "&bHeadPacket &7- &fCustom Heads MOTD"
+  line2: "&ePlease use 1.21.9+ for the full experience!"
+
 # Dynamic Slots (Always Plus One)
 # If true, the maximum player slots will automatically be set to current online players + 1.
 # Example: 5/6, 10/11, etc.
@@ -38,6 +50,6 @@ ignore-bedrock: true
 # Text that appears when players hover over the player count in the server list.
 # Supports MiniMessage (<gradient>, <rainbow>, etc) and Legacy (&a, &b, etc) formats.
 hover-messages:
-  - "<gradient:aqua:blue>HeadPacket</gradient> by vanes430"
+  - "&bHeadPacket &fby vanes430"
   - "&7Status: &aOnline"
   - "&eJoin now!"

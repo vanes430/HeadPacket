@@ -40,7 +40,7 @@ public class PaperHeadPacket extends JavaPlugin implements HeadPacketPlugin {
         if (!imagesFolder.exists()) imagesFolder.mkdirs();
         this.mappingCache = new TextureCache(new File(getDataFolder(), "mapping.json"));
         this.processor = new ImageProcessor(new MineSkinClient(config.getString("mineskin-api-key", "")),
-            new TextureCache(new File(getDataFolder(), "cache.json")), getDataFolder(), config::getMessage);
+            new TextureCache(new File(getDataFolder(), "cache.json")), getDataFolder(), config::getMessage, this);
         PacketEvents.getAPI().init();
         PacketEvents.getAPI().getEventManager().registerListener(new MotdHandler(this), PacketListenerPriority.HIGHEST);
         reloadPlugin();
@@ -55,7 +55,7 @@ public class PaperHeadPacket extends JavaPlugin implements HeadPacketPlugin {
         if (!imagesFolder.exists()) imagesFolder.mkdirs();
         if (this.processor != null) this.processor.shutdown();
         this.processor = new ImageProcessor(new MineSkinClient(config.getString("mineskin-api-key", "")),
-            new TextureCache(new File(getDataFolder(), "cache.json")), getDataFolder(), config::getMessage);
+            new TextureCache(new File(getDataFolder(), "cache.json")), getDataFolder(), config::getMessage, this);
         motdUrls.clear(); mappingCache.load();
         String motdCache = mappingCache.get("motd");
         if (motdCache != null && !motdCache.isEmpty()) {
@@ -71,6 +71,11 @@ public class PaperHeadPacket extends JavaPlugin implements HeadPacketPlugin {
     @Override public void error(String m, Throwable e) { getLogger().log(java.util.logging.Level.SEVERE, m, e); }
 
     public void processMotd(CommandSender sender, int pct) {
+        String apiKey = config.getString("mineskin-api-key", "");
+        if (apiKey == null || apiKey.trim().isEmpty()) {
+            sender.sendMessage(config.getMessage("mineskin-key-missing", true));
+            return;
+        }
         File file = new File(new File(getDataFolder(), config.getString("images-folder", "images")), config.getString("motd-image", "motd.png"));
         if (!file.exists()) { sender.sendMessage(config.getMessage("image-not-found", true).replace("{file}", file.getName())); return; }
         sender.sendMessage(config.getMessage("processing-start", true));
@@ -97,4 +102,17 @@ public class PaperHeadPacket extends JavaPlugin implements HeadPacketPlugin {
     @Override public JsonArray getCachedHoverJson() { return jsonCache.getHoverCache(); }
     @Override public boolean isAlwaysPlusOne() { return config.getBoolean("always_plus_one", false); }
     @Override public boolean isIgnoreBedrock() { return config.getBoolean("ignore-bedrock", true); }
+
+    @Override
+    public List<String> getFallbackMotd() {
+        return List.of(
+            config.getString("fallback-motd.line1", ""),
+            config.getString("fallback-motd.line2", "")
+        );
+    }
+
+    @Override
+    public int getMineSkinDelay() {
+        return config.getInt("mineskin-delay", 2000);
+    }
 }

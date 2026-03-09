@@ -15,4 +15,6 @@ public interface HeadPacketPlugin {
     JsonArray getCachedHoverJson();
     boolean isAlwaysPlusOne();
     boolean isIgnoreBedrock();
+    List<String> getFallbackMotd();
+    int getMineSkinDelay();
 }

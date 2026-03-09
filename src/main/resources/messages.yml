@@ -1,10 +1,23 @@
-# HeadPacket Messages (English)
+# ==========================================================
+#                  HeadPacket Messages
+#           Created by vanes430 | github.vanes430
+# ==========================================================
+
+# --- General ---
 prefix: "&b[HeadPacket] "
 reload-success: "&aPlugin reloaded successfully."
+
+# --- Commands & Permissions ---
 no-permission: "&cYou do not have permission to use this command."
 console-only: "&cThis command can only be executed via the server CONSOLE."
 invalid-percentage: "&cInvalid percentage format. Please use a number between 1-100."
+command-help-reload: "&e/headpacket reload &7- Reload config and mapping.json"
+command-help-process: "&e/headpacket process-motd [percentage] &7- (Console Only) Slice & Upload MOTD image"
+
+# --- Image & Processing ---
 image-not-found: "&cFile {file} not found in the images folder!"
+image-invalid-size: "&cInvalid image size! Height must be 8 or 16, and width must be a multiple of 8 (Max 264). (Detected: {width}x{height})"
+mineskin-key-missing: "&cMineSkin API Key is required! Please get one at https://mineskin.org/ and add it to config.yml."
 motd-image-missing: "&cmotd-image is not configured in config.yml!"
 processing-start: "&eProcessing MOTD... Please wait."
 detection-report: "&bImage detected: {width}x{height} pixels."
@@ -14,7 +27,7 @@ layer-uploading: "&6Process block {current}/{total}... uploading..."
 layer-done: "&aBlock {current} done."
 processing-complete: "&aMOTD processed successfully! ({rows} rows)"
 processing-failed: "&cProcessing failed: {error}"
+
+# --- MOTD Status ---
 motd-not-mapped: "&wMOTD is not yet registered in mapping. Use /headpacket process-motd"
 motd-loaded: "&aMOTD loaded from cache ({rows} rows)."
-command-help-reload: "&e/headpacket reload &7- Reload config and mapping.json"
-command-help-process: "&e/headpacket process-motd [percentage] &7- (Console Only) Slice & Upload MOTD image"

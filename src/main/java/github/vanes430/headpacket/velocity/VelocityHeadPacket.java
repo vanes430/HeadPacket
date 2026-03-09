@@ -46,7 +46,7 @@ public class VelocityHeadPacket implements HeadPacketPlugin {
         PacketEvents.getAPI().load(); PacketEvents.getAPI().init();
         this.mappingCache = new TextureCache(dataDir.resolve("mapping.json").toFile());
         this.processor = new ImageProcessor(new MineSkinClient(config.getString("mineskin-api-key", "")),
-            new TextureCache(dataDir.resolve("cache.json").toFile()), dataDir.toFile(), config::getMessage);
+            new TextureCache(dataDir.resolve("cache.json").toFile()), dataDir.toFile(), config::getMessage, this);
         PacketEvents.getAPI().getEventManager().registerListener(new MotdHandler(this), PacketListenerPriority.HIGHEST);
         reloadPlugin();
         CommandManager cm = server.getCommandManager();
@@ -61,7 +61,7 @@ public class VelocityHeadPacket implements HeadPacketPlugin {
         if (!imagesFolder.exists()) imagesFolder.mkdirs();
         if (this.processor != null) this.processor.shutdown();
         this.processor = new ImageProcessor(new MineSkinClient(config.getString("mineskin-api-key", "")),
-            new TextureCache(dataDir.resolve("cache.json").toFile()), dataDir.toFile(), config::getMessage);
+            new TextureCache(dataDir.resolve("cache.json").toFile()), dataDir.toFile(), config::getMessage, this);
         motdUrls.clear(); mappingCache.load();
         String motdCache = mappingCache.get("motd");
         if (motdCache != null && !motdCache.isEmpty()) {
@@ -76,6 +76,11 @@ public class VelocityHeadPacket implements HeadPacketPlugin {
     @Override public void error(String m, Throwable e) { logger.error(m, e); }
 
     public void processMotd(CommandSource source, int pct) {
+        String apiKey = config.getString("mineskin-api-key", "");
+        if (apiKey == null || apiKey.trim().isEmpty()) {
+            source.sendMessage(Component.text(config.getMessage("mineskin-key-missing", true)));
+            return;
+        }
         File file = new File(dataDir.resolve(config.getString("images-folder", "images")).toFile(), config.getString("motd-image", "motd.png"));
         if (!file.exists()) { source.sendMessage(Component.text(config.getMessage("image-not-found", true).replace("{file}", file.getName()))); return; }
         source.sendMessage(Component.text(config.getMessage("processing-start", true)));
@@ -94,6 +99,19 @@ public class VelocityHeadPacket implements HeadPacketPlugin {
     @Override public JsonArray getCachedHoverJson() { return jsonCache.getHoverCache(); }
     @Override public boolean isAlwaysPlusOne() { return config.getBoolean("always_plus_one", false); }
     @Override public boolean isIgnoreBedrock() { return config.getBoolean("ignore-bedrock", true); }
+
+    @Override
+    public List<String> getFallbackMotd() {
+        return List.of(
+            config.getString("fallback-motd.line1", ""),
+            config.getString("fallback-motd.line2", "")
+        );
+    }
+
+    @Override
+    public int getMineSkinDelay() {
+        return config.getInt("mineskin-delay", 2000);
+    }
 
     public HeadPacketSender wrapSource(CommandSource s) {
         return new HeadPacketSender() {

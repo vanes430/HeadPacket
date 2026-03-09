@@ -18,10 +18,13 @@ public class HeadPacketCommand {
 
     public void register(Commands commands) {
         LiteralCommandNode<CommandSourceStack> node = literal("headpacket")
-                .requires(stack -> stack.getSender().hasPermission("headpacket.admin"))
                 .then(literal("reload")
                         .executes(ctx -> {
                             CommandSender sender = ctx.getSource().getSender();
+                            if (!(sender instanceof ConsoleCommandSender)) {
+                                sender.sendMessage(plugin.getMessage("console-only", true));
+                                return 0;
+                            }
                             plugin.reloadPlugin();
                             sender.sendMessage(plugin.getMessage("reload-success", true));
                             return Command.SINGLE_SUCCESS;

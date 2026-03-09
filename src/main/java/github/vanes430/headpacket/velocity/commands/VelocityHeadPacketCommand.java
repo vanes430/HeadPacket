@@ -15,8 +15,12 @@ public class VelocityHeadPacketCommand implements SimpleCommand {
 
     @Override
     public void execute(Invocation invocation) {
-        String[] args = invocation.arguments();
         var source = invocation.source();
+        if (!(source instanceof com.velocitypowered.api.proxy.ConsoleCommandSource)) {
+            source.sendMessage(net.kyori.adventure.text.Component.text(plugin.getMessage("console-only", true)));
+            return;
+        }
+        String[] args = invocation.arguments();
         if (args.length > 0) {
             if (args[0].equalsIgnoreCase("reload")) {
                 plugin.reloadPlugin();
@@ -53,5 +57,5 @@ public class VelocityHeadPacketCommand implements SimpleCommand {
         return Collections.emptyList();
     }
 
-    @Override public boolean hasPermission(Invocation invocation) { return invocation.source().hasPermission("headpacket.admin"); }
+    @Override public boolean hasPermission(Invocation invocation) { return true; }
 }

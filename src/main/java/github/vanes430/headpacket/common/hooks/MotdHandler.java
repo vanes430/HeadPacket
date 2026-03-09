@@ -8,6 +8,11 @@ import com.google.gson.*;
 import github.vanes430.headpacket.common.HeadPacketPlugin;
 import io.netty.channel.Channel;
 import io.netty.util.AttributeKey;
+import java.util.List;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 
 public class MotdHandler implements PacketListener {
     private static final AttributeKey<?> FLOODGATE_ATTR = AttributeKey.valueOf("floodgate-player");
@@ -47,6 +52,13 @@ public class MotdHandler implements PacketListener {
                     description.addProperty("shadow_color", -1); description.addProperty("text", "");
                     fullStatus.add("description", description);
                 }
+            } else {
+                List<String> fallback = plugin.getFallbackMotd();
+                if (fallback != null && !fallback.isEmpty()) {
+                    String line1 = fallback.get(0);
+                    String line2 = fallback.size() > 1 ? fallback.get(1) : "";
+                    fullStatus.add("description", createTextComponent(line1 + "\n" + line2));
+                }
             }
             wrapper.setComponentJson(fullStatus.toString());
             wrapper.write();
@@ -62,5 +74,12 @@ public class MotdHandler implements PacketListener {
             }
         } catch (Throwable ignored) {}
         return false;
+    }
+
+    private JsonObject createTextComponent(String text) {
+        Component component = text.contains("<") && text.contains(">")
+                ? MiniMessage.miniMessage().deserialize(text)
+                : LegacyComponentSerializer.legacyAmpersand().deserialize(text);
+        return JsonParser.parseString(GsonComponentSerializer.gson().serialize(component)).getAsJsonObject();
     }
 }
