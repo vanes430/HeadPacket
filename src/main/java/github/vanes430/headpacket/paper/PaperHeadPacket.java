@@ -28,7 +28,7 @@ public class PaperHeadPacket extends JavaPlugin implements HeadPacketPlugin {
     public void onLoad() {
         if (!PacketEvents.getAPI().isLoaded()) {
             PacketEvents.setAPI(SpigotPacketEventsBuilder.build(this));
-            PacketEvents.getAPI().getSettings().checkForUpdates(false).bStats(true);
+            PacketEvents.getAPI().getSettings().checkForUpdates(false);
             PacketEvents.getAPI().load();
         }
     }

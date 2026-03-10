@@ -22,6 +22,10 @@ dependencies {
     compileOnly("com.velocitypowered:velocity-brigadier:1.0.0-SNAPSHOT")
 }
 
+tasks.withType<JavaCompile> {
+    options.compilerArgs.addAll(listOf("-Xlint:deprecation"))
+}
+
 java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(25))

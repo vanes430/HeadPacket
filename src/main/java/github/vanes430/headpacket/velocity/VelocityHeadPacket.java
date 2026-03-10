@@ -42,7 +42,7 @@ public class VelocityHeadPacket implements HeadPacketPlugin {
         File imagesFolder = new File(dataDir.toFile(), config.getString("images-folder", "images"));
         if (!imagesFolder.exists()) imagesFolder.mkdirs();
         PacketEvents.setAPI(VelocityPacketEventsBuilder.build(server, container, logger, dataDir));
-        PacketEvents.getAPI().getSettings().checkForUpdates(false).bStats(true);
+        PacketEvents.getAPI().getSettings().checkForUpdates(false);
         PacketEvents.getAPI().load(); PacketEvents.getAPI().init();
         this.mappingCache = new TextureCache(dataDir.resolve("mapping.json").toFile());
         this.processor = new ImageProcessor(new MineSkinClient(config.getString("mineskin-api-key", "")),
