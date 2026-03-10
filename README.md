@@ -1,4 +1,5 @@
 # HeadPacket
+[![Hits](https://hits.dwyl.com/vanes430/HeadPacket.svg?style=flat-square)](https://hits.dwyl.com/vanes430/HeadPacket)
 **HeadPacket** is a high-performance, cross-platform Minecraft plugin designed to enhance your server list presence with advanced MOTD customization, custom head rendering, and sophisticated spoofing features.
 
 Created by **vanes430** | [GitHub](https://github.com/vanes430/HeadPacket)
